@@ -3,10 +3,7 @@ layout: default
 ---
 <div class="container">
   <div class="text-center">
-    <div id="search-container" class="dropdown">
-      <input type="text" id="search-input" placeholder="search..." onkeyup="checkSearchValAndDropdown();">
-      <ul id="results-container" class="dropdown-menu"></ul>
-    </div>
+    {% include search_box.html %}
     {% if paginator.page_trail %}
     <nav aria-label="...">
       <ul class="pagination">
