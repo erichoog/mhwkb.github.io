@@ -1,3 +1,32 @@
+// LANGUAGE DROPDOWN DATA LIST
+// Now only this list needs to be updated when a new language is added.
+var languageDropDownDataList = [
+  {
+    lang: '00_00', url: '/'
+  },
+  {
+    lang: 'de_DE', url: '/category/DE'
+  },
+  {
+    lang: 'en_US', url: '/category/EN'
+  },
+  {
+    lang: 'hi_IN', url: '/category/HI'
+  },
+  {
+    lang: 'ne_NP', url: '/category/NE'
+  },
+  {
+    lang: 'nl_NL', url: '/category/NL'
+  },
+  {
+    lang: 'pt_BR', url: '/category/pt_BR'
+  },
+  {
+    lang: 'sv_SE', url: '/category/SV'
+  }
+];
+
 // TO ALLOW DROPDOWN RESULTS USING BOOTSTRAP DROPDOWNS
 function checkSearchValAndDropdown() {
   if($('#search-input').val()){
@@ -8,16 +37,43 @@ function checkSearchValAndDropdown() {
   }
 }
 
+// USED TO SET DATA-AVAILABLE ATTRIBUTE FOR #languageSelector element
+function getLanguageDataAvailable() { 
+  var languageDataAvaialbe = '';
+  languageDropDownDataList.forEach(x => languageDataAvaialbe += x.lang + ',');
+  languageDataAvaialbe = languageDataAvaialbe.replace(/,\s*$/, "");
+  return languageDataAvaialbe;
+}
+
+// USER TO SET DATA-LANGUGE ATTRIBUTE FOR #languageSelector element
+function getCurrentLanguageFromURL() {
+   var url = document.location.href;
+   var categoryString = "/category/"
+
+   if (url.includes(categoryString)) {
+      var catString = categoryString + url.substr(url.indexOf(categoryString) + categoryString.length, categoryString.length);
+      catString = catString.substr(0, catString.length - 1);    
+      var langData = languageDropDownDataList.find(x => x.url == catString);
+      return langData.lang;
+   }
+   else {
+      return '00_00';
+   }
+}
+
 // FOR LANGUAGE DROPDOWN CHANGE DETECTION
 $(document).ready(function(){
+  $('#languageSelector').attr('data-available', getLanguageDataAvailable());
+
+  $('#languageSelector').attr('data-language', getCurrentLanguageFromURL());
+
   $('.bfh-selectbox').on('change.bfhselectbox', function () {
     var lang = $(this).val();
-    if (lang == "en_US") document.location.href = "/category/EN";
-    else if (lang == "de_DE") document.location.href = "/category/DE";
-    else if (lang == "hi_IN") document.location.href = "/category/HI";
-    else if (lang == "ne_NP") document.location.href = "/category/NE";
-    else if (lang == "nl_NL") document.location.href = "/category/NL";
-    else if (lang == "pt_BR") document.location.href = "/category/pt_BR";
-    else if (lang == "sv_SE") document.location.href = "/category/SV";
+
+    if (languageDropDownDataList.findIndex(x => x.lang == lang) != -1)
+    {
+      var langData = languageDropDownDataList.find(x => x.lang == lang);
+      document.location.href = langData.url;
+    }
   });
 });
