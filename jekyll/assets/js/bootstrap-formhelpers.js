@@ -25,6 +25,7 @@ if (!jQuery) { throw new Error("Bootstrap Form Helpers requires jQuery"); }
  * ========================================================== */
  
 var BFHCountriesList = {
+  '00': 'No Country',
   'AF': 'Afghanistan',
   'AL': 'Albania',
   'DZ': 'Algeria',
@@ -7680,6 +7681,7 @@ var BFHGoogleFontsList = {
  * ========================================================== */
  
 var BFHLanguagesList = {
+  '00': 'Select language',
   'om': 'Afaan Oromoo',
   'aa': 'Afaraf',
   'af': 'Afrikaans',
