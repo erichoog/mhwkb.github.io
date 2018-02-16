@@ -47,18 +47,25 @@ function getLanguageDataAvailable() {
 
 // USER TO SET DATA-LANGUGE ATTRIBUTE FOR #languageSelector element
 function getCurrentLanguageFromURL() {
-   var url = document.location.href;
-   var categoryString = "/category/"
+  var url = document.location.href;
+  var categoryString = "/category/";
+  var tagString = "/tag/";
 
-   if (url.includes(categoryString)) {
-      var catString = categoryString + url.substr(url.indexOf(categoryString) + categoryString.length, categoryString.length);
-      catString = catString.substr(0, catString.length - 1);    
-      var langData = languageDropDownDataList.find(x => x.url == catString);
-      return langData.lang;
-   }
-   else {
-      return '00_00';
-   }
+  if (url.includes(categoryString)) {
+    var catString = categoryString + url.substr(url.indexOf(categoryString) + categoryString.length, categoryString.length);
+    catString = catString.substr(0, catString.length - 1);    
+    var langData = languageDropDownDataList.find(x => x.url == catString);
+    return langData.lang;
+  }
+  else if (url.includes(tagString)){
+    var langID = $(".panel").first().attr("lang-id");
+    var urlString = categoryString + langID;
+    var langData = languageDropDownDataList.find(x => x.url == urlString);
+    return langData.lang;
+  }
+  else {
+    return '00_00';
+  }
 }
 
 // FOR LANGUAGE DROPDOWN CHANGE DETECTION
