@@ -52,8 +52,11 @@ function getCurrentLanguageFromURL() {
   var tagString = "/tag/";
 
   if (url.includes(categoryString)) {
-    var catString = categoryString + url.substr(url.indexOf(categoryString) + categoryString.length, categoryString.length);
-    catString = catString.substr(0, catString.length - 1);    
+    var catString = categoryString + url.substr(url.indexOf(categoryString) + categoryString.length, url.length);  
+    var delimiter = '/',
+      end = 3,
+      tokens = catString.split(delimiter).slice(0, end),
+      catString = tokens.join(delimiter);   
     var langData = languageDropDownDataList.find(x => x.url == catString);
     return langData.lang;
   }
