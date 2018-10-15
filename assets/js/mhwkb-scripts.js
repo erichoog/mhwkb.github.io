@@ -52,11 +52,7 @@ function getCurrentLanguageFromURL() {
   var tagString = "/tag/";
 
   if (url.includes(categoryString)) {
-    var catString = categoryString + url.substr(url.indexOf(categoryString) + categoryString.length, url.length);  
-    var delimiter = '/',
-      end = 3,
-      tokens = catString.split(delimiter).slice(0, end),
-      catString = tokens.join(delimiter);   
+    var catString = parseURLForLanguage(url, categoryString);
     var langData = languageDropDownDataList.find(x => x.url == catString);
     return langData.lang;
   }
@@ -69,6 +65,29 @@ function getCurrentLanguageFromURL() {
   else {
     return '00_00';
   }
+}
+
+function parseURLForLanguage(url, categoryString) {
+  var catString = categoryString + url.substr(url.indexOf(categoryString) + categoryString.length, url.length);  
+    var delimiter = '/',
+      end = 3,
+      tokens = catString.split(delimiter).slice(0, end),
+      catString = tokens.join(delimiter);
+      return catString;  
+}
+
+function getSortCategoryAlphabeticalLink() {
+  var url = document.location.href;
+  var categoryString = "/category/";
+  var catString = parseURLForLanguage(url, categoryString) + '/alphabetical';
+  return catString;
+}
+
+function getSortCategoryByDateLink() {
+  var url = document.location.href;
+  var categoryString = "/category/";
+  var catString = parseURLForLanguage(url, categoryString);
+  return catString;
 }
 
 // FOR LANGUAGE DROPDOWN CHANGE DETECTION
@@ -86,4 +105,7 @@ $(document).ready(function(){
       document.location.href = langData.url;
     }
   });
+
+  $('#sort-alphabetical').attr('href', getSortCategoryAlphabeticalLink());
+  $('#sort-by-date').attr('href', getSortCategoryByDateLink());
 });
