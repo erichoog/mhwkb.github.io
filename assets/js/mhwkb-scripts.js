@@ -77,13 +77,11 @@ function parseURLForLanguage(url, categoryString) {
 }
 
 function getSortCategoryAlphabeticalLink() {
-  var url = document.location.href;
-  var categoryString = "/category/";
-  var catString = parseURLForLanguage(url, categoryString) + '/alphabetical';
+  var catString = getBaseCategoryLink() + '/alphabetical';
   return catString;
 }
 
-function getSortCategoryByDateLink() {
+function getBaseCategoryLink() {
   var url = document.location.href;
   var categoryString = "/category/";
   var catString = parseURLForLanguage(url, categoryString);
@@ -107,5 +105,5 @@ $(document).ready(function(){
   });
 
   $('#sort-alphabetical').attr('href', getSortCategoryAlphabeticalLink());
-  $('#sort-by-date').attr('href', getSortCategoryByDateLink());
+  $('#sort-by-date').attr('href', getBaseCategoryLink());
 });
